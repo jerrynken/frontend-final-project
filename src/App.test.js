@@ -1,8 +1,13 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen, fireEvent } from '@testing-library/react';
+import BookingForm from './components/BookingForm';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('updates selectedTime state on time selection', () => {
+  render(<BookingForm />);
+
+  // Simulate selecting a time
+  const timeInput = screen.getByLabelText(/Choose time/i);
+  fireEvent.change(timeInput, { target: { value: '18:00' } });
+
+  // Check if the selectedTime state has been updated
+  expect(timeInput.value).toBe('18:00');
 });
